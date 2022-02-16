@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "901323277270",
+    "project_id": "lmsa-4dfbb",
+    "storage_bucket": "lmsa-4dfbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901323277270:android:ddef35339cda39ddbf9a77",
+        "android_client_info": {
+          "package_name": "com.rayzinfo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901323277270-b0om9j1kbirob4e6lhfmn0kpmmjj78i4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rayzinfo",
+            "certificate_hash": "f4f8d9c4d58b938b46951c76bf854e65c5f0447e"
+          }
+        },
+        {
+          "client_id": "901323277270-tflpp5d6u54taiknrrpb77vd3194uqp2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXfmEIZBPa1ZKT-__h_dLOMqiP46hns5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901323277270-tflpp5d6u54taiknrrpb77vd3194uqp2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
