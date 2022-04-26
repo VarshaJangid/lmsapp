@@ -1,6 +1,7 @@
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:location/location.dart';
+import 'package:geocode/geocode.dart';
 import 'package:flutter/material.dart';
 import '/services/firebase.dart';
 import '/components/popup_widget.dart';
@@ -30,6 +31,8 @@ class AddDataViewModel extends BaseViewModel {
   String category = '';
   String interest = '';
   String selectDate = '';
+  String countryDetails = "";
+  Location currentLocation = Location();
 
   void init(BuildContext context) {}
 
@@ -52,10 +55,11 @@ class AddDataViewModel extends BaseViewModel {
       flutterToast("Average Use Is Empty", Colors.red);
     } else if (interestController.text == '') {
       flutterToast("Interest Is Empty", Colors.red);
-    }  else {
+    } else {
       interest != Constants.no
-      ? nextFollowController.text == '' ? flutterToast("Next Follow Up Is Empty", Colors.red)
-    : addData(context)
+          ? nextFollowController.text == ''
+              ? flutterToast("Next Follow Up Is Empty", Colors.red)
+              : addData(context)
           : addData(context);
     }
   }
@@ -65,8 +69,10 @@ class AddDataViewModel extends BaseViewModel {
     DatePicker.showDatePicker(context,
         theme: DatePickerTheme(
           containerHeight: 210.0,
-          doneStyle: AppTheme.textStyle.heading1.copyWith(color: AppTheme.colors.primaryColor1),
-          cancelStyle: AppTheme.textStyle.heading1.copyWith(color: AppTheme.colors.primaryColor1),
+          doneStyle: AppTheme.textStyle.heading1
+              .copyWith(color: AppTheme.colors.primaryColor1),
+          cancelStyle: AppTheme.textStyle.heading1
+              .copyWith(color: AppTheme.colors.primaryColor1),
           itemStyle: AppTheme.textStyle.heading1,
         ),
         showTitleActions: true,
@@ -85,7 +91,7 @@ class AddDataViewModel extends BaseViewModel {
       'uid': auth.currentUser.uid,
       'current_time': DateTime.now().microsecondsSinceEpoch,
       'company_name': companyNameController.text,
-      'category': categoryController.text+otherController.text,
+      'category': categoryController.text + otherController.text,
       'address': addressController.text,
       'address_2': addressSecondController.text,
       'city': "Jaipur",
@@ -120,16 +126,45 @@ class AddDataViewModel extends BaseViewModel {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              const SizedBox(height: Dimensions.s20,),
-              PopUpWidget(title: Constants.hotel, model: this,),
-              PopUpWidget(title: Constants.restaurants, model: this,),
-              PopUpWidget(title: Constants.hostel, model: this,),
-              PopUpWidget(title: Constants.dhaba, model: this,),
-              PopUpWidget(title: Constants.hospital, model: this,),
-              PopUpWidget(title: Constants.marriage, model: this,),
-              PopUpWidget(title: Constants.party, model: this,),
-              PopUpWidget(title: Constants.canteen, model: this,),
-              PopUpWidget(title: Constants.other, model: this,),
+              const SizedBox(
+                height: Dimensions.s20,
+              ),
+              PopUpWidget(
+                title: Constants.hotel,
+                model: this,
+              ),
+              PopUpWidget(
+                title: Constants.restaurants,
+                model: this,
+              ),
+              PopUpWidget(
+                title: Constants.hostel,
+                model: this,
+              ),
+              PopUpWidget(
+                title: Constants.dhaba,
+                model: this,
+              ),
+              PopUpWidget(
+                title: Constants.hospital,
+                model: this,
+              ),
+              PopUpWidget(
+                title: Constants.marriage,
+                model: this,
+              ),
+              PopUpWidget(
+                title: Constants.party,
+                model: this,
+              ),
+              PopUpWidget(
+                title: Constants.canteen,
+                model: this,
+              ),
+              PopUpWidget(
+                title: Constants.other,
+                model: this,
+              ),
             ],
           );
         });
@@ -255,5 +290,22 @@ class AddDataViewModel extends BaseViewModel {
     interestController.dispose();
     otherController.dispose();
     super.dispose();
+  }
+
+  //get Current location
+  void getLocation() async {
+    await currentLocation.getLocation();
+    currentLocation.onLocationChanged.listen((LocationData loc) async {
+      GeoCode geoCode = GeoCode();
+      print("Lat Long ------- ${loc.latitude} ${loc.longitude}");
+      final results = geoCode.reverseGeocoding(
+          latitude: loc.latitude!, longitude: loc.longitude!);
+      print("Result is ---- $results");
+      results.then((value) {
+        countryDetails =
+            '${value.streetNumber}, ${value.streetAddress}, ${value.city}, ${value.region}, ${value.postal}, ${value.countryCode}, ${value.countryName}';
+        notifyListeners();
+      });
+    });
   }
 }

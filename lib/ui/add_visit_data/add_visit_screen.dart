@@ -74,12 +74,36 @@ class AddVisitDataScreen extends StatelessWidget {
                   obscureText: false,
                   action: TextInputAction.next,
                 ),
-                AppTextField(
-                  controller: model.addressController,
-                  labelText: Constants.address,
-                  keyboardType: TextInputType.name,
-                  obscureText: false,
-                  action: TextInputAction.next,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .5,
+                      child: AppTextField(
+                        controller: model.addressController,
+                        labelText: Constants.address,
+                        keyboardType: TextInputType.name,
+                        obscureText: false,
+                        action: TextInputAction.next,
+                      ),
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .3,
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: AppTheme.colors.primaryColor1),
+                        onPressed: () {
+                          model.getLocation();
+                          model.addressController.text = model.countryDetails;
+                        },
+                        child: const Text(
+                          "Location",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 AppTextField(
                   controller: model.addressSecondController,
@@ -93,12 +117,19 @@ class AddVisitDataScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: Dimensions.s24,),
+                        const SizedBox(
+                          height: Dimensions.s24,
+                        ),
                         const Text(
                           Constants.rajasthan,
-                          style: TextStyle(color: Colors.black, fontSize: 16,),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
                         ),
-                        const SizedBox(height: Dimensions.s20,),
+                        const SizedBox(
+                          height: Dimensions.s20,
+                        ),
                         Container(
                           width: Dimensions.padding * 1.4,
                           height: 1,
@@ -110,12 +141,19 @@ class AddVisitDataScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: Dimensions.s24,),
+                        const SizedBox(
+                          height: Dimensions.s24,
+                        ),
                         const Text(
                           Constants.jaipur,
-                          style: TextStyle(color: Colors.black, fontSize: 16,),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
                         ),
-                        const SizedBox(height: Dimensions.s20,),
+                        const SizedBox(
+                          height: Dimensions.s20,
+                        ),
                         Container(
                           width: Dimensions.padding * 1.5,
                           height: 1,
@@ -167,30 +205,39 @@ class AddVisitDataScreen extends StatelessWidget {
                     height: Dimensions.s20 * 1.5,
                     child: Text(
                       model.interest == ''
-                          ? Constants.interest : model.interest,
+                          ? Constants.interest
+                          : model.interest,
                       style: TextStyle(
                         color: model.interest == ''
-                            ? AppTheme.colors.lightGrey : Colors.black,
+                            ? AppTheme.colors.lightGrey
+                            : Colors.black,
                         fontSize: Dimensions.s16,
                       ),
                     ),
                   ),
                   onTap: () => model.buildInterestDialog(context),
                 ),
-                Divider(color: AppTheme.colors.blueGrey, thickness: 1.2,),
+                Divider(
+                  color: AppTheme.colors.blueGrey,
+                  thickness: 1.2,
+                ),
                 const SizedBox(height: Dimensions.paddingM),
                 model.interest == 'No'
-                    ? const SizedBox(height: 0,)
+                    ? const SizedBox(
+                        height: 0,
+                      )
                     : GestureDetector(
                         child: SizedBox(
                           width: Dimensions.padding * 2,
                           height: Dimensions.s20 * 1.5,
                           child: Text(
                             model.selectDate == ''
-                                ? Constants.nextFollow : model.selectDate,
+                                ? Constants.nextFollow
+                                : model.selectDate,
                             style: TextStyle(
                               color: model.selectDate == ''
-                                  ? AppTheme.colors.lightGrey : Colors.black,
+                                  ? AppTheme.colors.lightGrey
+                                  : Colors.black,
                               fontSize: Dimensions.s16,
                             ),
                           ),
@@ -198,14 +245,19 @@ class AddVisitDataScreen extends StatelessWidget {
                         onTap: () => model.nextFollowUp(context),
                       ),
                 Divider(
-                    color: model.interest == 'No' ? Colors.white
+                    color: model.interest == 'No'
+                        ? Colors.white
                         : AppTheme.colors.blueGrey,
                     thickness: 1.2),
-                const SizedBox(height: Dimensions.s12,),
+                const SizedBox(
+                  height: Dimensions.s12,
+                ),
                 CustomButton(
                     callback: () => model.validation(context),
                     title: Constants.addDetails),
-                const SizedBox(height: Dimensions.s12,),
+                const SizedBox(
+                  height: Dimensions.s12,
+                ),
               ],
             ),
           ),
