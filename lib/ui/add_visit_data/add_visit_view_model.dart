@@ -7,8 +7,8 @@ import '/services/firebase.dart';
 import '/components/popup_widget.dart';
 import 'package:stacked/stacked.dart';
 import '/values/app_constants.dart';
-import '/values/dimensions.dart';
 import '/values/app_method.dart';
+import '/values/dimensions.dart';
 import '/values/app_routes.dart';
 import '/services/auth.dart';
 import '/theme/theme.dart';
@@ -33,8 +33,13 @@ class AddDataViewModel extends BaseViewModel {
   String selectDate = '';
   String countryDetails = "";
   Location currentLocation = Location();
+  double? lat;
+  double? long;
 
-  init(BuildContext context) {}
+  init(BuildContext context) {
+    Future.delayed(
+        const Duration(milliseconds: 200), () => getLocation(context));
+  }
 
   validation(BuildContext context) {
     if (companyNameController.text == '') {
@@ -43,10 +48,11 @@ class AddDataViewModel extends BaseViewModel {
       flutterToast("Category Is Empty", Colors.red);
     } else if (addressController.text == '') {
       flutterToast("Address Is Empty", Colors.red);
-    } else if (emailController.text == '') {
-      flutterToast("Email Is Empty", Colors.red);
-    } else if (contactNumberController.text == '') {
-      flutterToast("Contact Number Is Empty", Colors.red);
+      // } else if (emailController.text == '') {
+      //   flutterToast("Email Is Empty", Colors.red);
+    } else if (contactNumberController.text == '' ||
+        contactNumberController.text.length != 10) {
+      flutterToast("Contact Number Is Not Valid", Colors.red);
     } else if (nameController.text == '') {
       flutterToast("Name Is Empty", Colors.red);
     } else if (remarkController.text == '') {
@@ -105,6 +111,8 @@ class AddDataViewModel extends BaseViewModel {
       'next_follow': nextFollowController.text,
       'average_daily_use': averageUseController.text,
       'interest': interestController.text,
+      'lat': lat,
+      'long': long,
     });
     AppRoutes.dismiss(context);
     flutterToast(Constants.successfullyAdded, AppTheme.colors.primaryColor1);
@@ -126,9 +134,7 @@ class AddDataViewModel extends BaseViewModel {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              const SizedBox(
-                height: Dimensions.s20,
-              ),
+              const SizedBox(height: Dimensions.s20),
               PopUpWidget(
                 title: Constants.hotel,
                 model: this,
@@ -279,6 +285,7 @@ class AddDataViewModel extends BaseViewModel {
 
   @override
   void dispose() {
+    currentLocation.serviceEnabled();
     companyNameController.dispose();
     categoryController.dispose();
     addressController.dispose();
@@ -297,20 +304,24 @@ class AddDataViewModel extends BaseViewModel {
   }
 
   //get Current location
-  Future getLocation() async {
+  Future getLocation(BuildContext context) async {
     await currentLocation.getLocation();
     currentLocation.onLocationChanged.listen((LocationData loc) async {
-      GeoCode geoCode = GeoCode();
-      print("Lat Long ------- ${loc.latitude} ${loc.longitude}");
-      final results = geoCode.reverseGeocoding(
-          latitude: loc.latitude!, longitude: loc.longitude!);
-      results.then((value) {
-        countryDetails =
-            '${value.streetNumber}, ${value.streetAddress}, ${value.postal},';
-        notifyListeners();
-        addressController.text = countryDetails;
-        notifyListeners();
-      });
+      // GeoCode geoCode = GeoCode();
+      logger.i("Latitude Longitude ------- ${loc.latitude} ${loc.longitude}");
+      lat = loc.latitude;
+      long = loc.longitude;
+      notifyListeners();
+      // final results = geoCode.reverseGeocoding(
+      //     latitude: loc.latitude!, longitude: loc.longitude!);
+      // results.then((value) {
+      //   AppRoutes.dismissLoader(context, false);
+      //   countryDetails =
+      //       '${value.streetNumber}, ${value.streetAddress}, ${value.postal}';
+      //   notifyListeners();
+      //   addressController.text = countryDetails;
+      //   notifyListeners();
+      // });
     });
   }
 }

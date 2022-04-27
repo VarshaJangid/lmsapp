@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '/values/app_method.dart';
 import 'package:stacked/stacked.dart';
 import '/values/app_constants.dart';
 import '/values/app_assets.dart';
@@ -8,7 +9,7 @@ class DetailViewModel extends BaseViewModel {
   String image = '';
   dynamic currentTime = DateFormat.jm().format(DateTime.now());
   void init(BuildContext context, final category) {
-    print("Current Time is : $currentTime");
+    logger.i("Current Time is : $currentTime");
     category == Constants.hotel
         ? image = Assets.hotelJSON
         : category == Constants.restaurants

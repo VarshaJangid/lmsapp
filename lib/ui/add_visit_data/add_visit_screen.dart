@@ -73,35 +73,42 @@ class AddVisitDataScreen extends StatelessWidget {
                   obscureText: false,
                   action: TextInputAction.next,
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * .5,
-                      child: AppTextField(
-                        controller: model.addressController,
-                        labelText: Constants.address,
-                        keyboardType: TextInputType.name,
-                        obscureText: false,
-                        action: TextInputAction.next,
-                      ),
-                    ),
-                    const Spacer(),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * .3,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                            backgroundColor: AppTheme.colors.primaryColor1),
-                        onPressed: () async {
-                          await model.getLocation();
-                        },
-                        child: const Text(
-                          Constants.location,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.end,
+                //   children: [
+                //     SizedBox(
+                //       width: MediaQuery.of(context).size.width * .5,
+                //       child: AppTextField(
+                //         controller: model.addressController,
+                //         labelText: Constants.address,
+                //         keyboardType: TextInputType.name,
+                //         obscureText: false,
+                //         action: TextInputAction.next,
+                //       ),
+                //     ),
+                //     const Spacer(),
+                //     SizedBox(
+                //       width: MediaQuery.of(context).size.width * .3,
+                //       child: TextButton(
+                //         style: TextButton.styleFrom(
+                //             backgroundColor: AppTheme.colors.primaryColor1),
+                //         onPressed: () async {
+                //           await model.getLocation(context);
+                //         },
+                //         child: const Text(
+                //           Constants.location,
+                //           style: TextStyle(color: Colors.white),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                AppTextField(
+                  controller: model.addressController,
+                  labelText: Constants.address,
+                  keyboardType: TextInputType.name,
+                  obscureText: false,
+                  action: TextInputAction.next,
                 ),
                 AppTextField(
                   controller: model.addressSecondController,
@@ -115,9 +122,7 @@ class AddVisitDataScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: Dimensions.s24,
-                        ),
+                        const SizedBox(height: Dimensions.s24),
                         const Text(
                           Constants.rajasthan,
                           style: TextStyle(
@@ -125,9 +130,7 @@ class AddVisitDataScreen extends StatelessWidget {
                             fontSize: 16,
                           ),
                         ),
-                        const SizedBox(
-                          height: Dimensions.s20,
-                        ),
+                        const SizedBox(height: Dimensions.s20),
                         Container(
                           width: Dimensions.padding * 1.4,
                           height: 1,
@@ -139,9 +142,7 @@ class AddVisitDataScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: Dimensions.s24,
-                        ),
+                        const SizedBox(height: Dimensions.s24),
                         const Text(
                           Constants.jaipur,
                           style: TextStyle(
@@ -247,15 +248,11 @@ class AddVisitDataScreen extends StatelessWidget {
                         ? Colors.white
                         : AppTheme.colors.blueGrey,
                     thickness: 1.2),
-                const SizedBox(
-                  height: Dimensions.s12,
-                ),
+                const SizedBox(height: Dimensions.s12),
                 CustomButton(
                     callback: () => model.validation(context),
                     title: Constants.addDetails),
-                const SizedBox(
-                  height: Dimensions.s12,
-                ),
+                const SizedBox(height: Dimensions.s12),
               ],
             ),
           ),

@@ -1,5 +1,5 @@
+import '/values/app_method.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import '/ui/login/login_screen.dart';
 import '/values/app_constants.dart';
@@ -42,7 +42,7 @@ class Auth {
       mobileNo: _user.mobileNo,
       address: _user.address,
     );
-    print(
+    logger.w(
         'setUserFromPreference uid -------- ${prefs.getString(Constants.uid)}');
   }
 
@@ -60,14 +60,14 @@ class Auth {
     prefs.setString(Constants.name, name);
     prefs.setString(Constants.address, address);
 
-    print(
+    logger.wtf(
         'updateUserInSharedPrefs uid -------- ${prefs.getString(Constants.uid)}');
   }
 
   Future<void> removeUserFromSharedPrefs(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
-    print('-------- removeUserFromSharedPrefs --------');
+    logger.e('-------- removeUserFromSharedPrefs --------');
     AppRoutes.makeFirst(context, LoginScreen());
   }
 }

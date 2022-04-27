@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lms/values/app_assets.dart';
+import '/values/app_assets.dart';
 import 'package:lottie/lottie.dart';
 import '/components/text_widget.dart';
 import '/values/app_constants.dart';

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lms/values/app_constants.dart';
+import '/values/app_constants.dart';
 import '/values/app_method.dart';
 import '/services/auth.dart';
 import '/theme/theme.dart';
