@@ -121,6 +121,9 @@ class AddDataViewModel extends BaseViewModel {
 // Choose Categories
   buildCategoryDialog(BuildContext context) {
     showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.paddingL),
+        ),
         context: context,
         builder: (context) {
           return ListView(
