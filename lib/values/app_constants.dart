@@ -186,4 +186,6 @@ class Constants {
   static const String location = "Location";
 
   static const String noData = "No Data";
+
+  static const String deleted = "Deleted !!";
 }

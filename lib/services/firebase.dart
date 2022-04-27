@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lms/values/app_constants.dart';
 import '/values/app_method.dart';
 import '/services/auth.dart';
 import '/theme/theme.dart';
@@ -16,8 +17,9 @@ Future<void> deleteData(String data) {
   return followUps
       .doc(data)
       .delete()
-      .then((value) => flutterToast("Deleted !!", AppTheme.colors.primaryColor1))
-      .catchError((error) => flutterToast("Failed to delete : $error", Colors.red));
+      .then((value) => flutterToast(Constants.deleted, Colors.red))
+      .catchError(
+          (error) => flutterToast("Failed to delete : $error", Colors.red));
 }
 
 // Update Data
@@ -29,7 +31,10 @@ Future<void> updateUser(String name, String email, String address) {
         'number': auth.currentUser.mobileNo,
         'name': name,
         'email': email,
-        'address': address})
-      .then((value) => flutterToast("Updated !!", AppTheme.colors.primaryColor1))
-      .catchError((error) => flutterToast("Failed to update : $error", Colors.red));
+        'address': address
+      })
+      .then(
+          (value) => flutterToast("Updated !!", AppTheme.colors.primaryColor1))
+      .catchError(
+          (error) => flutterToast("Failed to update : $error", Colors.red));
 }
