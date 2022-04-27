@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import '/components/app_textfield.dart';
 import '/components/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +37,7 @@ class AddVisitDataScreen extends StatelessWidget {
                 const SizedBox(height: Dimensions.paddingL),
                 GestureDetector(
                   child: SizedBox(
-                    width: Dimensions.padding * 2,
+                    width: MediaQuery.of(context).size.width,
                     height: Dimensions.paddingXL,
                     child: Text(
                       model.category == ''
@@ -93,12 +92,11 @@ class AddVisitDataScreen extends StatelessWidget {
                       child: TextButton(
                         style: TextButton.styleFrom(
                             backgroundColor: AppTheme.colors.primaryColor1),
-                        onPressed: () {
-                          model.getLocation();
-                          model.addressController.text = model.countryDetails;
+                        onPressed: () async {
+                          await model.getLocation();
                         },
                         child: const Text(
-                          "Location",
+                          Constants.location,
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
@@ -201,7 +199,7 @@ class AddVisitDataScreen extends StatelessWidget {
                 const SizedBox(height: Dimensions.s20),
                 GestureDetector(
                   child: SizedBox(
-                    width: Dimensions.padding * 2,
+                    width: MediaQuery.of(context).size.width,
                     height: Dimensions.s20 * 1.5,
                     child: Text(
                       model.interest == ''

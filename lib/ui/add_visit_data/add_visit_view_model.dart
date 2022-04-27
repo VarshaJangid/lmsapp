@@ -34,7 +34,7 @@ class AddDataViewModel extends BaseViewModel {
   String countryDetails = "";
   Location currentLocation = Location();
 
-  void init(BuildContext context) {}
+  init(BuildContext context) {}
 
   validation(BuildContext context) {
     if (companyNameController.text == '') {
@@ -188,7 +188,7 @@ class AddDataViewModel extends BaseViewModel {
             style: AppTheme.textStyle.heading1.copyWith(
                 color: AppTheme.colors.primaryColor1, fontSize: Dimensions.s20),
           ),
-          elevation: 0,
+          elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(Dimensions.s5),
           ),
@@ -205,7 +205,9 @@ class AddDataViewModel extends BaseViewModel {
               ),
               const Text(
                 Constants.yes,
-                style: TextStyle(fontSize: Dimensions.s16),
+                style: TextStyle(
+                  fontSize: Dimensions.s13,
+                ),
               ),
               Radio(
                 activeColor: AppTheme.colors.primaryColor1,
@@ -219,7 +221,7 @@ class AddDataViewModel extends BaseViewModel {
               const Text(
                 Constants.moderate,
                 style: TextStyle(
-                  fontSize: Dimensions.s16,
+                  fontSize: Dimensions.s13,
                 ),
               ),
               Radio(
@@ -233,7 +235,9 @@ class AddDataViewModel extends BaseViewModel {
               ),
               const Text(
                 Constants.no,
-                style: TextStyle(fontSize: Dimensions.s16),
+                style: TextStyle(
+                  fontSize: Dimensions.s13,
+                ),
               ),
             ],
           ),
@@ -293,17 +297,18 @@ class AddDataViewModel extends BaseViewModel {
   }
 
   //get Current location
-  void getLocation() async {
+  Future getLocation() async {
     await currentLocation.getLocation();
     currentLocation.onLocationChanged.listen((LocationData loc) async {
       GeoCode geoCode = GeoCode();
       print("Lat Long ------- ${loc.latitude} ${loc.longitude}");
       final results = geoCode.reverseGeocoding(
           latitude: loc.latitude!, longitude: loc.longitude!);
-      print("Result is ---- $results");
       results.then((value) {
         countryDetails =
-            '${value.streetNumber}, ${value.streetAddress}, ${value.city}, ${value.region}, ${value.postal}, ${value.countryCode}, ${value.countryName}';
+            '${value.streetNumber}, ${value.streetAddress}, ${value.postal},';
+        notifyListeners();
+        addressController.text = countryDetails;
         notifyListeners();
       });
     });
