@@ -76,7 +76,7 @@ class _BrowseScreenState extends State<BrowseScreen>
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: controller,
-        children: [FollowUpsScreen(), VisitingScreen(), OrdersScreen()],
+        children: [FollowUpsScreen(), const VisitingScreen(), OrdersScreen()],
       ),
     );
   }

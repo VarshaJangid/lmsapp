@@ -182,4 +182,8 @@ class Constants {
   static const String rajasthan = "Rajasthan";
 
   static const String jaipur = "Jaipur";
+
+  static const String location = "Location";
+
+  static const String noData = "No Data";
 }

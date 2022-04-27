@@ -25,30 +25,42 @@ class FollowUpsScreen extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(color: AppTheme.colors.primaryColor1),
+              child: CircularProgressIndicator(
+                  color: AppTheme.colors.primaryColor1),
             );
           }
-          return SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(
-                Dimensions.paddingM, 0, Dimensions.paddingM, 0),
-            child: Wrap(
-              spacing: Dimensions.paddingL,
-              runSpacing: Dimensions.paddingM,
-              children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                    document.data()! as Map<String, dynamic>;
-                return SlideMenu(menuItems: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.delete,
-                      color: Colors.red,
+          return snapshot.data!.docs.isEmpty
+              ? Center(
+                  child: Text(
+                    Constants.noData,
+                    style: AppTheme.textStyle.alertText.copyWith(
+                      fontSize: Dimensions.s14,
+                      fontWeight: FontWeight.bold,
                     ),
-                    onPressed: () => deleteData(document.id),
                   ),
-                ], child: FollowUpsWidget(data: data));
-              }).toList(),
-            ),
-          );
+                )
+              : SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(
+                      Dimensions.paddingM, 0, Dimensions.paddingM, 0),
+                  child: Wrap(
+                    spacing: Dimensions.paddingL,
+                    runSpacing: Dimensions.paddingM,
+                    children:
+                        snapshot.data!.docs.map((DocumentSnapshot document) {
+                      Map<String, dynamic> data =
+                          document.data()! as Map<String, dynamic>;
+                      return SlideMenu(menuItems: [
+                        IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          onPressed: () => deleteData(document.id),
+                        ),
+                      ], child: FollowUpsWidget(data: data));
+                    }).toList(),
+                  ),
+                );
         },
       ),
       viewModelBuilder: () => FollowUpsViewModel(),
